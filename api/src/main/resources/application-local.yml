@@ -1,0 +1,24 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    hikari:
+      business:
+        driver-class-name: org.mariadb.jdbc.Driver
+        jdbc-url: jdbc:mariadb://192.168.1.253:3306/localdb
+        username: matthew
+        password: ENC(2CTYlgRXmYmlDbJkE9dMV9JQnEAnxNWL)
+      personal:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://192.168.1.253/postgres
+        username: postgres 
+        password: ENC(cMCFuBMiyXpJPHQj9P3PFdhcP4UCV/hR)
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        query:
+          in_clause_parameter_padding: true
+    open-in-view: false
