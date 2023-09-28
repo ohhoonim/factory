@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 
 import dev.ohhoonim.factory.api.auth.dto.AuthResponse;
+import dev.ohhoonim.factory.api.auth.service.vo.AuthVo;
 import dev.ohhoonim.factory.api.config.JwtService;
 import dev.ohhoonim.factory.infra.personal.auth.repository.TokenRepository;
 import dev.ohhoonim.factory.infra.personal.auth.repository.UserRepository;
@@ -27,15 +28,14 @@ public class AuthService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
 
-    // public User authenticate(User user) {
-    public AuthResponse authenticate(User user) {
+    public AuthVo authenticate(User user) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         String jwtToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveToken(user, jwtToken);
-        return new AuthResponse( jwtToken, refreshToken);
+        return new AuthVo( jwtToken, refreshToken);
     }
 
     private void revokeAllUserTokens(User user) {
@@ -60,22 +60,22 @@ public class AuthService {
     }
 
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        final String refreshToken;
-        final String userEmail; // username
+        final var authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return;
         }
-        refreshToken = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(refreshToken);
+        final var refreshToken = authHeader.substring(7);
+        final var userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
-            User user= this.userRepository.findByEmail(userEmail).get();
-            if (jwtService.isTokenValid(refreshToken, user)) {
-               String accessToken = jwtService.generateToken(user);
-               AuthResponse authResponse = new AuthResponse(accessToken, refreshToken);
-                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+            var user= userRepository.findByEmail(userEmail);
+            if (user.isPresent()) {
+                if (jwtService.isTokenValid(refreshToken, user.get())) {
+                   AuthResponse authResponse = new AuthResponse(jwtService.generateToken(user.get()));
+                    new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+                }
+            } else {
+                throw new RuntimeException("사용자를 찾을 수 없습니다.");
             }
         }
     }
-
 }

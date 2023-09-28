@@ -1,15 +1,20 @@
 package dev.ohhoonim.factory.api.auth;
 
 import java.io.IOException;
+
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.net.HttpHeaders;
+
 import dev.ohhoonim.factory.api.auth.dto.AuthRequest;
 import dev.ohhoonim.factory.api.auth.dto.AuthResponse;
 import dev.ohhoonim.factory.api.auth.service.AuthService;
+import dev.ohhoonim.factory.api.auth.service.vo.AuthVo;
 import dev.ohhoonim.factory.infra.personal.auth.repository.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,12 +32,21 @@ public class AuthController {
             .email(login.email()) 
             .password(login.password())
             .build(); 
-        return ResponseEntity.ok(authService.authenticate(user));
-        // authority : 회원가입 , 인가 
-        // authentication : 로그인 , 인증 
+        AuthVo authVo = authService.authenticate(user);
+
+        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", authVo.refreshToken())
+            .httpOnly(true)
+            .secure(true)
+            .path("/")
+            .maxAge(60)
+            .domain("localhost")
+            .build();
+        return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
+            .body(new AuthResponse(authVo.accessToken()));
     }
 
-    @PostMapping("/refresh-token")
+    @PostMapping("/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         authService.refreshToken(request, response);
     }
