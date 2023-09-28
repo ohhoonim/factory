@@ -50,4 +50,6 @@ public class AuthController {
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         authService.refreshToken(request, response);
     }
+
+    // logout은 SecurityConfig에 "/auth/logout" 으로 설정되어있음
 }
