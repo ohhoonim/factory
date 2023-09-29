@@ -1,10 +1,11 @@
 package dev.ohhoonim.factory.api.config;
 
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import jakarta.servlet.http.HttpServletRequest;
 
-@RestControllerAdvice
+@ControllerAdvice(basePackages = {"dev.ohhoonim.factory.api"})
 public class DefaultExceptionHandler {
 
     @ExceptionHandler(Exception.class)

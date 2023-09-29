@@ -1,3 +1,7 @@
+server:
+  servlet:
+    contextPath: /api/v1
+
 spring:
   application:
     name: factory 
