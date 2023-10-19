@@ -1,4 +1,4 @@
-package dev.ohhoonim.factory.domain.auth.api;
+package dev.ohhoonim.factory.domain.auth.api.service;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -9,8 +9,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import dev.ohhoonim.factory.domain.auth.User;
-import dev.ohhoonim.factory.domain.auth.UserSignupCommand;
-import dev.ohhoonim.factory.domain.auth.UserSignupUsecase;
+import dev.ohhoonim.factory.domain.auth.api.RequiredItemException;
+import dev.ohhoonim.factory.domain.auth.api.UserSignupUsecase;
 import dev.ohhoonim.factory.domain.auth.infra.FactoryUserException;
 import dev.ohhoonim.factory.domain.auth.infra.SmtpPort;
 import dev.ohhoonim.factory.domain.auth.infra.UserSignupCommandPort;

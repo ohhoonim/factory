@@ -20,9 +20,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import dev.ohhoonim.factory.domain.auth.User;
-import dev.ohhoonim.factory.domain.auth.UserSignupCommand;
 import dev.ohhoonim.factory.domain.auth.api.RequiredItemException;
-import dev.ohhoonim.factory.domain.auth.api.UserSignupService;
+import dev.ohhoonim.factory.domain.auth.api.service.UserSignupCommand;
+import dev.ohhoonim.factory.domain.auth.api.service.UserSignupService;
 import dev.ohhoonim.factory.domain.auth.infra.FactoryUserException;
 import dev.ohhoonim.factory.domain.auth.infra.SmtpPort;
 import dev.ohhoonim.factory.domain.auth.infra.UserSignupCommandPort;
