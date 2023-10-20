@@ -18,9 +18,6 @@ public class DefaultResponseHandler implements ResponseBodyAdvice<Object> {
             MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request,
             ServerHttpResponse response) {
         DefaultResponseBodyBuilder builder = DefaultResponseBody.builder();
-        if (body != null) {
-
-        }
         DefaultResponseBody defaultBody =  body == null ? null : (DefaultResponseBody) body;
         if (defaultBody != null && defaultBody.getCode().equals(ResponseCodeEnum.ERROR)) {
             builder
