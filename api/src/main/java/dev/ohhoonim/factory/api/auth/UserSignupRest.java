@@ -29,7 +29,7 @@ public class UserSignupRest {
         userSignupService.requestSignup(commandMapper.apply(dto));
     }
 
-    @PostMapping("/resendMai")
+    @PostMapping("/resendMail")
     public void resendMail(@RequestBody String email) {
         userSignupService.resendMail(email);
     }
