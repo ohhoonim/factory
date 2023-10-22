@@ -14,7 +14,7 @@ import dev.ohhoonim.factory.api.config.JwtService;
 import dev.ohhoonim.factory.infra.personal.auth.repository.TokenRepository;
 import dev.ohhoonim.factory.infra.personal.auth.repository.UserRepository;
 import dev.ohhoonim.factory.infra.personal.auth.repository.entity.Tokens;
-import dev.ohhoonim.factory.infra.personal.auth.repository.entity.User;
+import dev.ohhoonim.factory.infra.personal.auth.repository.entity.Users;
 import dev.ohhoonim.factory.infra.personal.auth.repository.type.TokenType;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
 
-    public AuthVo authenticate(User user) {
+    public AuthVo authenticate(Users user) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         String jwtToken = jwtService.generateToken(user);
@@ -38,7 +38,7 @@ public class AuthService {
         return new AuthVo(jwtToken, refreshToken);
     }
 
-    private void revokeAllUserTokens(User user) {
+    private void revokeAllUserTokens(Users user) {
         List<Tokens> validTokens = tokenRepository.findAllValidTokenByUserId(user.getEmail());
         if (!validTokens.isEmpty()) {
             validTokens.forEach(t -> {
@@ -49,7 +49,7 @@ public class AuthService {
         }
     }
 
-    private void saveToken(User user, String jwtToken) {
+    private void saveToken(Users user, String jwtToken) {
         Tokens token = Tokens.builder()
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)

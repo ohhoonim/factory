@@ -17,7 +17,7 @@ import dev.ohhoonim.factory.api.auth.dto.AuthRequest;
 import dev.ohhoonim.factory.api.auth.dto.AuthResponse;
 import dev.ohhoonim.factory.api.auth.service.AuthService;
 import dev.ohhoonim.factory.api.auth.service.vo.AuthVo;
-import dev.ohhoonim.factory.infra.personal.auth.repository.entity.User;
+import dev.ohhoonim.factory.infra.personal.auth.repository.entity.Users;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +29,7 @@ public class AuthRest {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest login) {
-        User user = User.builder()
+        Users user = Users.builder()
             .email(login.email()) 
             .password(login.password())
             .build(); 
