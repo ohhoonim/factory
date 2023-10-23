@@ -6,7 +6,7 @@ spring:
   application:
     name: factory 
   profiles:
-    active: local 
+    active: unittest 
 
 
 application:
@@ -16,3 +16,5 @@ application:
       expiration: 86400000 # 1 day
       refresh-token:
         expiration: 604800000 # 7 days
+    jasypt:
+      secret-key: 4B6250655368566D597133743677397A244326462948404D635166546A576E5A

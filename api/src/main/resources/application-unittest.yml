@@ -1,0 +1,34 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    hikari:
+      business:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://postgresdb:5432/postgres
+        username: postgres
+        password: postgres
+      personal:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://postgresdb:5432/postgres
+        username: postgres 
+        password: postgres
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        query:
+          in_clause_parameter_padding: true
+    open-in-view: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: never
+      data-locations: classpath:sysadm.sql
+  
+    

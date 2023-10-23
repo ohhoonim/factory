@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="tokens", schema = "public")
+@Table(name="tokens", schema = "personal")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -3,18 +3,22 @@ package dev.ohhoonim.factory.api.config;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConfigurationProperties(prefix = "application.security.jasypt")
 public class JasyptConfig {
+   
+    private String secretKey;
+
     @Bean("jasyptStringEncryptor")
     public StringEncryptor stringEncryptor() {
-        String key = "4B6250655368566D597133743677397A244326462948404D635166546A576E5A";
-        
+
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword(key); // encrypt key
+        config.setPassword(secretKey); // encrypt key
 
         config.setAlgorithm("PBEWITHMD5ANDDES");
         config.setPoolSize("1");
