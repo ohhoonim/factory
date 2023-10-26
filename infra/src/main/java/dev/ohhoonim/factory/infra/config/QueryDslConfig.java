@@ -14,12 +14,12 @@ public class QueryDslConfig {
     @PersistenceContext(unitName = "personalEntityManager")
     private EntityManager personalJpaTransactionManager;
 
-    @Bean
+    @Bean(name="businessJpaQueryFactory")
     public JPAQueryFactory businessJpaQueryFactory() {
         return new JPAQueryFactory(businessJpaTransactionManager);
     }
 
-    @Bean
+    @Bean(name="personalJpaQueryFactory")
     public JPAQueryFactory personalJpaQueryFactory() {
         return new JPAQueryFactory(personalJpaTransactionManager);
     }

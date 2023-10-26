@@ -12,14 +12,17 @@ import dev.ohhoonim.factory.domain.auth.User;
 import dev.ohhoonim.factory.domain.auth.infra.UserSignupCommandPort;
 import dev.ohhoonim.factory.infra.personal.auth.repository.UserRepository;
 import dev.ohhoonim.factory.infra.personal.auth.repository.entity.Users;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class UserSignupCommandAdaptor implements UserSignupCommandPort {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private PasswordEncoder passwordEncoder;
+
+    public UserSignupCommandAdaptor (UserRepository userRepository) {
+        this.userRepository = userRepository;   
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     @Override
     public Optional<User> addUser(User newUser) {
@@ -30,6 +33,7 @@ public class UserSignupCommandAdaptor implements UserSignupCommandPort {
     Function<User, Users> usersMapper = user -> Users.builder()
             .email(user.getEmail())
             .password(passwordEncoder.encode(user.getPassword()))
+            .password(user.getPassword())
             .name(user.getName())
             .build();
 

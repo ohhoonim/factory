@@ -1,0 +1,60 @@
+
+---
+spring.config.activate.on-profile: unittest
+spring:
+  datasource:
+    hikari:
+      business:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://postgresdb:5432/postgres
+        username: postgres
+        password: postgres
+      personal:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://postgresdb:5432/postgres
+        username: postgres 
+        password: postgres
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        query:
+          in_clause_parameter_padding: true
+    open-in-view: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: never
+      data-locations: classpath:sysadm.sql
+---
+spring.config.activate.on-profile: dev
+spring:
+  datasource:
+    hikari:
+      business:
+        driver-class-name: org.mariadb.jdbc.Driver
+        jdbc-url: jdbc:mariadb://192.168.1.253:3306/localdb
+        username: matthew
+        password: ENC(2CTYlgRXmYmlDbJkE9dMV9JQnEAnxNWL)
+      personal:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://192.168.1.253/postgres
+        username: postgres 
+        password: ENC(cMCFuBMiyXpJPHQj9P3PFdhcP4UCV/hR)
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        query:
+          in_clause_parameter_padding: true
+    open-in-view: false
+
+---
+spring.config.activate.on-profile: product

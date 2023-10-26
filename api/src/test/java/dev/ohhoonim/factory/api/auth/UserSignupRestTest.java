@@ -60,12 +60,12 @@ public class UserSignupRestTest {
     @Test
     @DisplayName("회원가입 입력 필수값 체크")
     // @WithMockUser
-    // .with(SecurityMockMvcRequestPostProcessors.csrf())
     public void checkRequiredItemTest() throws Exception {
-        mockMvc.perform(
-                post("/auth/checkRequiredItem")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dto)))
+            mockMvc.perform(
+                    post("/auth/checkRequiredItem")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(dto)))
+                    // .with(SecurityMockMvcRequestPostProcessors.csrf())
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[?(@.message == 'success')]").exists());

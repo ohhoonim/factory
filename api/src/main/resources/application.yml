@@ -6,8 +6,9 @@ spring:
   application:
     name: factory 
   profiles:
-    active: unittest 
-
+    active: dev
+    include:
+      - db
 
 application:
   security:
@@ -18,3 +19,16 @@ application:
         expiration: 604800000 # 7 days
     jasypt:
       secret-key: 4B6250655368566D597133743677397A244326462948404D635166546A576E5A
+
+---
+spring.config.activate.on-profile: unittest
+server:
+  port: 8080
+---
+spring.config.activate.on-profile: dev
+server:
+  port: 8090
+---
+spring.config.activate.on-profile: product
+server:
+  port: 8080
