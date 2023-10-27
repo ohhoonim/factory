@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Profile;
-import org.springframework.test.annotation.Rollback;
 
 import dev.ohhoonim.factory.domain.auth.User;
 import dev.ohhoonim.factory.infra.config.BusinessDatasourceConfig;
@@ -35,7 +34,6 @@ public class UserSignupCommandAdaptorTest {
     UserRepository userRepository;
 
     @Test
-    @Rollback
     void addUserTest() {
         User newUser = User.builder()
                 .email("matthew.ju@ohhoonim.dev")
