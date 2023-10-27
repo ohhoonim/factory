@@ -3,6 +3,7 @@ package dev.ohhoonim.factory.infra.personal.auth;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import dev.ohhoonim.factory.domain.auth.User;
 import dev.ohhoonim.factory.infra.config.BusinessDatasourceConfig;
 import dev.ohhoonim.factory.infra.config.PersonalDatasourceConfig;
 import dev.ohhoonim.factory.infra.config.QueryDslConfig;
+import dev.ohhoonim.factory.infra.personal.auth.repository.UserRepository;
+import dev.ohhoonim.factory.infra.personal.auth.repository.entity.Users;
 
 
 @DataJpaTest
@@ -28,6 +31,9 @@ public class UserSignupCommandAdaptorTest {
     @Autowired
     UserSignupCommandAdaptor userSignupCommandAdaptor ;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Test
     @Rollback
     void addUserTest() {
@@ -37,9 +43,15 @@ public class UserSignupCommandAdaptorTest {
                 .name("matthew")
                 .build();
 
-         Optional<User> savedUser = userSignupCommandAdaptor.addUser(newUser);
+        Optional<User> savedUser = userSignupCommandAdaptor.addUser(newUser);
 
         assertTrue(savedUser.isPresent());
+
+        userRepository.delete(usersTestMapper.apply(savedUser.get()));
     }
 
+
+    Function<User, Users> usersTestMapper = user -> Users.builder()
+            .userId(user.getId())
+            .build();
 }

@@ -20,7 +20,7 @@ public class UserSignupCommandAdaptor implements UserSignupCommandPort {
     private PasswordEncoder passwordEncoder;
 
     public UserSignupCommandAdaptor (UserRepository userRepository) {
-        this.userRepository = userRepository;   
+        this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -33,7 +33,6 @@ public class UserSignupCommandAdaptor implements UserSignupCommandPort {
     Function<User, Users> usersMapper = user -> Users.builder()
             .email(user.getEmail())
             .password(passwordEncoder.encode(user.getPassword()))
-            .password(user.getPassword())
             .name(user.getName())
             .build();
 
