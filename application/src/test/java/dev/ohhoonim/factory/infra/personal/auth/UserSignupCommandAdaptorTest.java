@@ -11,24 +11,25 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Profile;
+import org.springframework.test.annotation.Rollback;
 
 import dev.ohhoonim.factory.domain.auth.User;
 import dev.ohhoonim.factory.infra.config.BusinessDatasourceConfig;
 import dev.ohhoonim.factory.infra.config.PersonalDatasourceConfig;
 import dev.ohhoonim.factory.infra.config.QueryDslConfig;
 
+
 @DataJpaTest
-@ImportAutoConfiguration({ PersonalDatasourceConfig.class,
-        BusinessDatasourceConfig.class, QueryDslConfig.class, UserSignupCommandAdaptor.class })
-// @Import({ UserSignupCommandAdaptor.class })
+@ImportAutoConfiguration({ PersonalDatasourceConfig.class, BusinessDatasourceConfig.class, QueryDslConfig.class, UserSignupCommandAdaptor.class })
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Profile("unittest")
 public class UserSignupCommandAdaptorTest {
 
     @Autowired
-    UserSignupCommandAdaptor userSignupCommandAdaptor;
+    UserSignupCommandAdaptor userSignupCommandAdaptor ;
 
     @Test
+    @Rollback
     void addUserTest() {
         User newUser = User.builder()
                 .email("matthew.ju@ohhoonim.dev")
@@ -36,9 +37,9 @@ public class UserSignupCommandAdaptorTest {
                 .name("matthew")
                 .build();
 
-        Optional<User> addedUser = userSignupCommandAdaptor.addUser(newUser);
+         Optional<User> savedUser = userSignupCommandAdaptor.addUser(newUser);
 
-        assertTrue(addedUser.isPresent());
+        assertTrue(savedUser.isPresent());
     }
 
 }

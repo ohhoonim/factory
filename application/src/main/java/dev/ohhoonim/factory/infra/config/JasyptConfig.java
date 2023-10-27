@@ -1,4 +1,4 @@
-package dev.ohhoonim.factory.api.config;
+package dev.ohhoonim.factory.infra.config;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;

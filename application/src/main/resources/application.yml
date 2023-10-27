@@ -6,7 +6,7 @@ spring:
   application:
     name: factory 
   profiles:
-    active: dev
+    active: unittest
     include:
       - db
 
