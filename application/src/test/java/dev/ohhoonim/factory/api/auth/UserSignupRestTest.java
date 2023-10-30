@@ -69,7 +69,7 @@ public class UserSignupRestTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[?(@.message == 'success')]").exists());
-
+        
         verify(userSignupService, times(1)).checkRequiredItem(any());
     }
 

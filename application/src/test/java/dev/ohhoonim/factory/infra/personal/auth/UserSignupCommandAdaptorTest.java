@@ -20,15 +20,17 @@ import dev.ohhoonim.factory.infra.config.QueryDslConfig;
 import dev.ohhoonim.factory.infra.personal.auth.repository.UserRepository;
 import dev.ohhoonim.factory.infra.personal.auth.repository.entity.Users;
 
-
 @DataJpaTest
-@ImportAutoConfiguration({ PersonalDatasourceConfig.class, BusinessDatasourceConfig.class, QueryDslConfig.class, UserSignupCommandAdaptor.class })
+@ImportAutoConfiguration({ PersonalDatasourceConfig.class,
+        BusinessDatasourceConfig.class,
+        QueryDslConfig.class,
+        UserSignupCommandAdaptor.class })
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Profile("unittest")
 public class UserSignupCommandAdaptorTest {
 
     @Autowired
-    UserSignupCommandAdaptor userSignupCommandAdaptor ;
+    UserSignupCommandAdaptor userSignupCommandAdaptor;
 
     @Autowired
     UserRepository userRepository;
@@ -47,7 +49,6 @@ public class UserSignupCommandAdaptorTest {
 
         userRepository.delete(usersTestMapper.apply(savedUser.get()));
     }
-
 
     Function<User, Users> usersTestMapper = user -> Users.builder()
             .userId(user.getId())

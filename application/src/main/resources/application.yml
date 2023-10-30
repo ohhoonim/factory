@@ -24,11 +24,38 @@ application:
 spring.config.activate.on-profile: unittest
 server:
   port: 8080
+management:
+  endpoints:
+    web:
+      base-path: /rest/actuator
+      exposure:
+        include: '*'
+springdoc:
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+  show-actuator: true
+  group-configs:
+    - group: auth
+      paths-to-match: /auth/**
+    - group: post
+      paths-to-match: /posts/**
+  cache:
+    disabled: true
 ---
 spring.config.activate.on-profile: dev
 server:
   port: 8090
+springdoc:
+  api-docs.enabled: false
+  swagger-ui.enabled: false
 ---
 spring.config.activate.on-profile: product
 server:
   port: 8080
+springdoc:
+  api-docs.enabled: false
+  swagger-ui.enabled: false

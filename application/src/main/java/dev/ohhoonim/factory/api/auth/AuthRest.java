@@ -18,6 +18,7 @@ import dev.ohhoonim.factory.api.auth.dto.AuthResponse;
 import dev.ohhoonim.factory.api.auth.service.AuthService;
 import dev.ohhoonim.factory.api.auth.service.vo.AuthVo;
 import dev.ohhoonim.factory.infra.personal.auth.repository.entity.Users;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthRest {
     private final AuthService authService;
 
+    @Operation(summary = "로그인", description = "로그인 후 토큰 발급", tags = { "로그인" })
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest login) {
         Users user = Users.builder()
@@ -47,6 +49,7 @@ public class AuthRest {
             .body(new AuthResponse(authVo.accessToken()));
     }
 
+    @Operation(summary = "토큰 재발급", description = "토큰 만료시 재발급해줌. 리프레쉬 토큰은 쿠키에 담겨있음", tags = { "로그인" })
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponse> refreshToken(@CookieValue String refreshToken, HttpServletResponse response) throws IOException {
         String newAccessToken = "";

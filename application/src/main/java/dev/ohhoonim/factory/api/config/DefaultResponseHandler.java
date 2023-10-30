@@ -18,19 +18,23 @@ public class DefaultResponseHandler implements ResponseBodyAdvice<Object> {
             MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request,
             ServerHttpResponse response) {
         DefaultResponseBodyBuilder builder = DefaultResponseBody.builder();
-        DefaultResponseBody defaultBody =  body == null ? null : (DefaultResponseBody) body;
-        if (defaultBody != null && defaultBody.getCode().equals(ResponseCodeEnum.ERROR)) {
-            builder
-                    .code(defaultBody.getCode())
-                    .message(defaultBody.getMessage())
-                    .data("")
-                    .description(defaultBody.getDescription());
-        } else  {
+        // DefaultResponseBody defaultBody = body == null ? null : (DefaultResponseBody)
+        // body;
+        if (body != null && (body instanceof DefaultResponseBody)) {
+            DefaultResponseBody defaultBody = (DefaultResponseBody) body;
+            if (defaultBody.getCode().equals(ResponseCodeEnum.ERROR)) {
+                builder
+                        .code(defaultBody.getCode())
+                        .message(defaultBody.getMessage())
+                        .data("")
+                        .description(defaultBody.getDescription());
+            }
+        } else {
             builder
                     .code(ResponseCodeEnum.SUCCESS)
                     .message(ResponseCodeEnum.SUCCESS.toString())
                     .data(body);
-        } 
+        }
 
         return builder.build();
     }
