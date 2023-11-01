@@ -26,9 +26,9 @@ public class UserSignupService implements UserSignupUsecase {
     @Override
     public void checkRequiredItem(UserSignupCommand command) {
         if (ObjectUtils.isEmpty(command) ||
-                StringUtils.hasText(command.email()) ||
-                StringUtils.hasText(command.password()) ||
-                StringUtils.hasText(command.passwordVerify())) {
+                !StringUtils.hasText(command.email()) ||
+                !StringUtils.hasText(command.password()) ||
+                !StringUtils.hasText(command.passwordVerify())) {
             throw new RequiredItemException("입력값이 존재하지 않습니다.");
         }
     }

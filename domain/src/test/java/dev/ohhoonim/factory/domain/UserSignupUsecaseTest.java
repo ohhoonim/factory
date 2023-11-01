@@ -1,5 +1,6 @@
 package dev.ohhoonim.factory.domain;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
@@ -40,29 +41,37 @@ public class UserSignupUsecaseTest {
 
     @ParameterizedTest
     @MethodSource("commandProvider")
-    void checkRequiredItem(UserSignupCommand command) {
-        assertThrowsExactly(RequiredItemException.class,
-                () -> userSignupService.checkRequiredItem(command), "");
+    void checkRequiredItem(UserSignupCommand command, Boolean expect) {
+        if( !expect) {
+                assertThrowsExactly(RequiredItemException.class,
+                        () -> userSignupService.checkRequiredItem(command), "");
+        } else {
+                assertDoesNotThrow(() -> userSignupService.checkRequiredItem(command));
+        }
     }
 
     public static Stream<Arguments> commandProvider() {
         return Stream.of(
                 arguments(UserSignupCommand.builder()
+                        .email("matthew@ohhoonim.com").password("1234qwer")
+                        .passwordVerify("1234qwer")
+                        .build(), true),
+                arguments(UserSignupCommand.builder()
                         .email(null).password("1234qwer")
                         .passwordVerify("1234qwer")
-                        .build()),
+                        .build(), false),
                 arguments(UserSignupCommand.builder()
                         .email("matthew@ohhoonim.com").password(null)
                         .passwordVerify("1234qwer")
-                        .build()),
+                        .build(), false),
                 arguments(UserSignupCommand.builder()
                         .email("matthew@ohhoonim.com").password("1234qwer")
                         .passwordVerify(null)
-                        .build()),
+                        .build(), false),
                 arguments(UserSignupCommand.builder()
                         .email("matthew@ohhoonim.com").password("1234qwer")
                         .passwordVerify("9991234qwer")
-                        .build()));
+                        .build(), true));
 
     }
 
