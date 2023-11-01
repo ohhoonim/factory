@@ -15,9 +15,11 @@ import dev.ohhoonim.factory.domain.auth.infra.FactoryUserException;
 import dev.ohhoonim.factory.domain.auth.infra.SmtpPort;
 import dev.ohhoonim.factory.domain.auth.infra.UserSignupCommandPort;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@Service
+@Slf4j
 @RequiredArgsConstructor
+@Service
 public class UserSignupService implements UserSignupUsecase {
 
     private final UserSignupCommandPort userSignupCommandPort;
@@ -40,7 +42,11 @@ public class UserSignupService implements UserSignupUsecase {
         if (!addedUser.isPresent()) {
             throw new FactoryUserException("회원등록에 실패하였습니다.");
         }
-        smtpPort.send(addedUser.get().getEmail());
+        try {
+            smtpPort.send(addedUser.get().getEmail());
+        } catch (UnsupportedOperationException e) {
+            log.warn("메일 기능은 동작하지 않습니다.");
+        }
     }
 
     @Override

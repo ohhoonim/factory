@@ -10,6 +10,18 @@ spring:
     include:
       - db
 
+management:
+  server.port: 8086
+  endpoints:
+    enabled-by-default: false
+    jmx.exposure.exclude: "*"
+    web:
+      base-path: /actuat
+      exposure.include: info, health
+  endpoint:
+    info.enabled: true
+    health.enabled: true
+
 application:
   security:
     jwt:
@@ -24,12 +36,7 @@ application:
 spring.config.activate.on-profile: unittest
 server:
   port: 8080
-management:
-  endpoints:
-    web:
-      base-path: /rest/actuator
-      exposure:
-        include: '*'
+
 springdoc:
   swagger-ui:
     display-request-duration: true
