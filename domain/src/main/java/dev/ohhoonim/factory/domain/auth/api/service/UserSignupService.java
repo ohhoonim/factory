@@ -38,10 +38,13 @@ public class UserSignupService implements UserSignupUsecase {
     @Override
     public void requestSignup(UserSignupCommand command) {
         verifyCommand(command);
-        Optional<User> addedUser = userSignupCommandPort.addUser(userMapper.apply(command));
-        if (!addedUser.isPresent()) {
-            throw new FactoryUserException("회원등록에 실패하였습니다.");
+        Optional<User> addedUser = Optional.empty();
+        try{ 
+            addedUser = userSignupCommandPort.addUser(userMapper.apply(command));
+        } catch (Exception e) {
+            throw new FactoryUserException("이미 등록된 메일 주소입니다.");
         }
+        
         try {
             smtpPort.send(addedUser.get().getEmail());
         } catch (UnsupportedOperationException e) {
