@@ -29,7 +29,7 @@ public class LogoutService implements LogoutHandler {
             return;
         }
         token = authHeader.substring(7);
-        if (!StringUtils.isEmpty(token)) {
+        if (!StringUtils.isEmpty(token) && !"undefined".equals(token)) {
             final String userEmail = jwtService.extractUsername(token);
             revokeAllUserTokens(userEmail);
         }
