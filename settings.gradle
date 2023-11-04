@@ -9,5 +9,4 @@
 
 rootProject.name = 'factory'
 include('domain')
-include('api')
-include('infra')
+include('application')

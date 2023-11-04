@@ -1,0 +1,68 @@
+server:
+  servlet:
+    contextPath: /api/v1
+
+spring:
+  application:
+    name: factory 
+  profiles:
+    active: unittest
+    include:
+      - db
+
+management:
+  server.port: 8086
+  endpoints:
+    enabled-by-default: false
+    jmx.exposure.exclude: "*"
+    web:
+      base-path: /actuat
+      exposure.include: info, health
+  endpoint:
+    info.enabled: true
+    health.enabled: true
+
+application:
+  security:
+    jwt:
+      secret-key: 462D4A614E645266556A586E3272357538782F413F4428472B4B625065536856
+      expiration: 86400000 # 1 day
+      refresh-token:
+        expiration: 604800000 # 7 days
+    jasypt:
+      secret-key: 4B6250655368566D597133743677397A244326462948404D635166546A576E5A
+
+---
+spring.config.activate.on-profile: unittest
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+  show-actuator: true
+  group-configs:
+    - group: auth
+      paths-to-match: /auth/**
+    - group: post
+      paths-to-match: /posts/**
+  cache:
+    disabled: true
+---
+spring.config.activate.on-profile: dev
+server:
+  port: 8090
+springdoc:
+  api-docs.enabled: false
+  swagger-ui.enabled: false
+---
+spring.config.activate.on-profile: product
+server:
+  port: 8080
+springdoc:
+  api-docs.enabled: false
+  swagger-ui.enabled: false
