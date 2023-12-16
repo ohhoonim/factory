@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.ohhoonim.factory.api.auth.dto.UserSignupRequest;
-import dev.ohhoonim.factory.domain.auth.api.UserSignupUsecase;
-import dev.ohhoonim.factory.domain.auth.api.service.UserSignupCommand;
+import dev.ohhoonim.factory.domain.auth.UserSignupUsecase;
+import dev.ohhoonim.factory.domain.auth.api.UserSignupCommand;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 

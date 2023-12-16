@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dev.ohhoonim.factory.api.auth.dto.UserSignupRequest;
 import dev.ohhoonim.factory.api.config.JwtService;
-import dev.ohhoonim.factory.domain.auth.api.UserSignupUsecase;
+import dev.ohhoonim.factory.domain.auth.UserSignupUsecase;
 import dev.ohhoonim.factory.infra.personal.auth.repository.TokenRepository;
 
 @WebMvcTest(controllers = UserSignupRest.class)

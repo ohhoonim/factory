@@ -22,8 +22,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import dev.ohhoonim.factory.domain.auth.User;
 import dev.ohhoonim.factory.domain.auth.api.RequiredItemException;
-import dev.ohhoonim.factory.domain.auth.api.service.UserSignupCommand;
-import dev.ohhoonim.factory.domain.auth.api.service.UserSignupService;
+import dev.ohhoonim.factory.domain.auth.api.UserSignupAgent;
+import dev.ohhoonim.factory.domain.auth.api.UserSignupCommand;
 import dev.ohhoonim.factory.domain.auth.infra.FactoryUserException;
 import dev.ohhoonim.factory.domain.auth.infra.SmtpPort;
 import dev.ohhoonim.factory.domain.auth.infra.UserSignupCommandPort;
@@ -32,7 +32,7 @@ import dev.ohhoonim.factory.domain.auth.infra.UserSignupCommandPort;
 public class UserSignupUsecaseTest {
 
     @InjectMocks
-    UserSignupService userSignupService;
+    UserSignupAgent userSignupService;
 
     @Mock
     UserSignupCommandPort userSignupCommandPort;

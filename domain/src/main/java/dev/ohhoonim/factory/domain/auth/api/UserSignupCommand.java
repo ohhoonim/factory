@@ -1,4 +1,4 @@
-package dev.ohhoonim.factory.domain.auth.api.service;
+package dev.ohhoonim.factory.domain.auth.api;
 
 import lombok.Builder;
 
