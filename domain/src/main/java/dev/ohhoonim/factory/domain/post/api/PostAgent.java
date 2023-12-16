@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 
 import dev.ohhoonim.factory.domain.post.Post;
 import dev.ohhoonim.factory.domain.post.PostUsecase;
-import dev.ohhoonim.factory.domain.post.infra.PostQuery;
+import dev.ohhoonim.factory.domain.post.infra.PostQueryPort;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class PostService implements PostUsecase {
+public class PostAgent implements PostUsecase {
     
-    private final PostQuery postQuery;
+    private final PostQueryPort postQuery;
     
     @Override
     public List<Post> postList() {

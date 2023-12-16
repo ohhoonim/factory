@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.ohhoonim.factory.domain.post.Post;
-import dev.ohhoonim.factory.domain.post.api.PostService;
+import dev.ohhoonim.factory.domain.post.api.PostAgent;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostService postService;
+    private final PostAgent postService;
 
     @Operation(summary = "post 목록 조회", description = "Post 목로을 조회한다.", security = {
             @SecurityRequirement(name = "bearer-key") }, tags = { "Post" })

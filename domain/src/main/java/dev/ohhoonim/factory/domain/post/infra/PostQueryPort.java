@@ -4,7 +4,7 @@ import java.util.List;
 
 import dev.ohhoonim.factory.domain.post.Post;
 
-public interface PostQuery {
+public interface PostQueryPort {
 
     List<Post> postList();
     
