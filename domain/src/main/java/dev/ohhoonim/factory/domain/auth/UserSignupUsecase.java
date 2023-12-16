@@ -1,6 +1,6 @@
-package dev.ohhoonim.factory.domain.auth.api;
+package dev.ohhoonim.factory.domain.auth;
 
-import dev.ohhoonim.factory.domain.auth.api.service.UserSignupCommand;
+import dev.ohhoonim.factory.domain.auth.api.UserSignupCommand;
 
 public interface UserSignupUsecase {
 
