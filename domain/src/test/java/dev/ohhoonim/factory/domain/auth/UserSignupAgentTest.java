@@ -1,4 +1,4 @@
-package dev.ohhoonim.factory.domain;
+package dev.ohhoonim.factory.domain.auth;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -29,10 +30,10 @@ import dev.ohhoonim.factory.domain.auth.infra.SmtpPort;
 import dev.ohhoonim.factory.domain.auth.infra.UserSignupCommandPort;
 
 @ExtendWith(MockitoExtension.class)
-public class UserSignupUsecaseTest {
+public class UserSignupAgentTest {
 
     @InjectMocks
-    UserSignupAgent userSignupService;
+    UserSignupAgent userSignupAgent;
 
     @Mock
     UserSignupCommandPort userSignupCommandPort;
@@ -44,9 +45,9 @@ public class UserSignupUsecaseTest {
     void checkRequiredItem(UserSignupCommand command, Boolean expect) {
         if( !expect) {
                 assertThrowsExactly(RequiredItemException.class,
-                        () -> userSignupService.checkRequiredItem(command), "");
+                        () -> userSignupAgent.checkRequiredItem(command), "");
         } else {
-                assertDoesNotThrow(() -> userSignupService.checkRequiredItem(command));
+                assertDoesNotThrow(() -> userSignupAgent.checkRequiredItem(command));
         }
     }
 
@@ -82,7 +83,7 @@ public class UserSignupUsecaseTest {
                 .passwordVerify("1234#qwer")
                 .build();
         assertThrowsExactly(RequiredItemException.class,
-                () -> userSignupService.requestSignup(command), "");
+                () -> userSignupAgent.requestSignup(command), "");
         verify(userSignupCommandPort, times(0)).addUser(any());
         verify(smtpPort, times(0)).send(any());
     }
@@ -94,7 +95,7 @@ public class UserSignupUsecaseTest {
                 .passwordVerify("qawsedqwer")
                 .build();
         assertThrowsExactly(RequiredItemException.class,
-                () -> userSignupService.requestSignup(command), "");
+                () -> userSignupAgent.requestSignup(command), "");
         verify(userSignupCommandPort, times(0)).addUser(any());
         verify(smtpPort, times(0)).send(any());
     }
@@ -106,7 +107,7 @@ public class UserSignupUsecaseTest {
                 .passwordVerify("1234dqwer99")
                 .build();
         assertThrowsExactly(RequiredItemException.class,
-                () -> userSignupService.requestSignup(command), "");
+                () -> userSignupAgent.requestSignup(command), "");
         verify(userSignupCommandPort, times(0)).addUser(any());
         verify(smtpPort, times(0)).send(any());
     }
@@ -117,8 +118,8 @@ public class UserSignupUsecaseTest {
                 .email("matthew@ohhoonim.dev").password("1234dqwer")
                 .passwordVerify("1234dqwer")
                 .build();
-        assertThrowsExactly(FactoryUserException.class,
-                () -> userSignupService.requestSignup(command), "");
+        assertThrowsExactly(NoSuchElementException.class,
+                () -> userSignupAgent.requestSignup(command), "");
         verify(userSignupCommandPort, times(1)).addUser(any());
         verify(smtpPort, times(0)).send(any());
     }
@@ -132,7 +133,7 @@ public class UserSignupUsecaseTest {
 
         when(userSignupCommandPort.addUser(any())).thenReturn(Optional.of(User.builder().build()));
 
-        userSignupService.requestSignup(command);
+        userSignupAgent.requestSignup(command);
         
         verify(userSignupCommandPort, times(1)).addUser(any());
         verify(smtpPort, times(1)).send(any());
