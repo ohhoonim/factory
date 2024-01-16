@@ -39,21 +39,21 @@ public class RegistCommentAgent implements RegistCommentUsecase, LookupCommentUs
     public BlockComment registComment(Comment newComment) {
         verifyComment(newComment);
         commentCommandPort.registComment(newComment);
-        if (isMentioned(newComment.getContents())) {
+        if (isMentioned(newComment.contents())) {
             // TODO mentioned comment를 저장하는 로직 다시 생각해봐야함.
             // TODO @로 대상자 가져오는 로직 추가해야함.
             // TODO @별로 저장해야함.
             mentionedCommentCommandPort
-                    .storeMentionedComment(new MentionedComment(newComment.getAuthor(), List.of(newComment)));
+                    .storeMentionedComment(new MentionedComment(newComment.author(), List.of(newComment)));
         }
-        return lookupComment(newComment.getBlockUuid());
+        return lookupComment(newComment.blockUuid());
     }
 
     private void verifyComment(Comment newComment) {
-        if (!StringUtils.hasText(newComment.getBlockUuid()) &&
-                !StringUtils.hasText(newComment.getAuthor()) &&
-                !StringUtils.hasText(newComment.getTitle()) &&
-                !StringUtils.hasText(newComment.getContents())) {
+        if (!StringUtils.hasText(newComment.blockUuid()) &&
+                !StringUtils.hasText(newComment.author()) &&
+                !StringUtils.hasText(newComment.title()) &&
+                !StringUtils.hasText(newComment.contents())) {
             throw new RequiredException("필수값 누락", null);
         }
     }

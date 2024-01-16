@@ -1,5 +1,5 @@
 package dev.ohhoonim.factory.domain.post.infra;
 
-public interface PostCommand {
+public interface PostCommandPort {
     
 }
