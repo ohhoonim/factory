@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  factorydb:
+    container_name: postgresfactorydb
+    image: postgres:16.1
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-factory-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+
+volumes:
+  postgres-factory-data:
