@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 public class FactoryTest {
     @Test
 	void contextLoads() {
+        // var modules = ApplicationModules.of(Factory.class);
+		// modules.verify();
 	}
 
 	@Autowired

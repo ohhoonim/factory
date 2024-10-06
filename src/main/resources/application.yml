@@ -52,6 +52,27 @@ springdoc:
       paths-to-match: /posts/**
   cache:
     disabled: true
+
+
+spring.docker.compose.lifecycle-management: start-only
+spring.sql.init.mode: always
+
+spring.threads.virtual.enabled: true
+
+spring.rabbitmq.username: myuser
+spring.rabbitmq.password: secret
+
+# spring.modulith.events.jdbc.schema-initialization.enabled: true
+# spring.modulith.moments.enable-time-machine: true
+# spring.modulith.moments.granularity: hours
+
+spring.data.redis.host: localhost
+spring.data.redis.port: 6379
+
+spring.cache.type: redis
+spring.cache.redis.cache-null-values: true
+
+
 ---
 spring.config.activate.on-profile: dev
 server:

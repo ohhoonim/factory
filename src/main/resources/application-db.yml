@@ -5,12 +5,12 @@ spring:
     hikari:
       business:
         driver-class-name: org.postgresql.Driver
-        jdbc-url: jdbc:postgresql://localhost:5432/postgres
+        jdbc-url: jdbc:postgresql://localhost:15432/postgres
         username: postgres
         password: postgres
       personal:
         driver-class-name: org.postgresql.Driver
-        jdbc-url: jdbc:postgresql://localhost:5432/postgres
+        jdbc-url: jdbc:postgresql://localhost:15432/postgres
         username: postgres 
         password: postgres
   jpa:
