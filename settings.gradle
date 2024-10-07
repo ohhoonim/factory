@@ -8,5 +8,3 @@
  */
 
 rootProject.name = 'factory'
-include('domain')
-include('application')
