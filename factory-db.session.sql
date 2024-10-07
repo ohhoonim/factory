@@ -1,0 +1,3 @@
+CREATE SCHEMA business AUTHORIZATION postgres;
+
+CREATE SCHEMA personal AUTHORIZATION postgres;
