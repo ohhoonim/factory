@@ -22,12 +22,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dev.ohhoonim.factory.api.auth.dto.UserSignupRequest;
-import dev.ohhoonim.factory.api.config.JwtService;
-import dev.ohhoonim.factory.domain.auth.UserSignupUsecase;
-import dev.ohhoonim.factory.infra.personal.auth.repository.TokenRepository;
+import dev.ohhoonim.factory.component.auths.model.UserSignupService;
+import dev.ohhoonim.factory.component.auths.service.UserSignupApi;
+import dev.ohhoonim.factory.component.auths.service.dto.UserSignupRequest;
+import dev.ohhoonim.factory.configuration.JwtService;
+import dev.ohhoonim.factory.personalRepository.TokenRepository;
 
-@WebMvcTest(controllers = UserSignupRest.class)
+@WebMvcTest(controllers = UserSignupApi.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class UserSignupRestTest {
 
@@ -38,7 +39,7 @@ public class UserSignupRestTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    UserSignupUsecase userSignupService;
+    UserSignupService userSignupService;
 
     @MockBean
     JwtService jwtService;
