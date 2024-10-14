@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import dev.ohhoonim.factory.domain.auth.infra.SmtpPort;
+import dev.ohhoonim.factory.component.smtp.SmtpPort;
 
 @SpringBootTest
 public class SmtpAdaptorTest {

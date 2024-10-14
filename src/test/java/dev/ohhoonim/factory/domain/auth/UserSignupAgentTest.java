@@ -21,19 +21,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import dev.ohhoonim.factory.domain.auth.User;
-import dev.ohhoonim.factory.domain.auth.api.RequiredItemException;
-import dev.ohhoonim.factory.domain.auth.api.UserSignupAgent;
-import dev.ohhoonim.factory.domain.auth.api.UserSignupCommand;
-import dev.ohhoonim.factory.domain.auth.infra.FactoryUserException;
-import dev.ohhoonim.factory.domain.auth.infra.SmtpPort;
-import dev.ohhoonim.factory.domain.auth.infra.UserSignupCommandPort;
+import dev.ohhoonim.factory.component.auths.model.User;
+import dev.ohhoonim.factory.component.auths.model.UserSignupService;
+import dev.ohhoonim.factory.component.auths.model.exception.RequiredItemException;
+import dev.ohhoonim.factory.component.auths.model.port.UserSignupCommandPort;
+import dev.ohhoonim.factory.component.auths.service.vo.UserSignupCommand;
+import dev.ohhoonim.factory.component.smtp.SmtpPort;
 
 @ExtendWith(MockitoExtension.class)
 public class UserSignupAgentTest {
 
     @InjectMocks
-    UserSignupAgent userSignupAgent;
+    UserSignupService userSignupAgent;
 
     @Mock
     UserSignupCommandPort userSignupCommandPort;

@@ -13,24 +13,25 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Profile;
 
-import dev.ohhoonim.factory.domain.auth.User;
-import dev.ohhoonim.factory.infra.config.BusinessDatasourceConfig;
-import dev.ohhoonim.factory.infra.config.PersonalDatasourceConfig;
-import dev.ohhoonim.factory.infra.config.QueryDslConfig;
-import dev.ohhoonim.factory.infra.personal.auth.repository.UserRepository;
-import dev.ohhoonim.factory.infra.personal.auth.repository.entity.Users;
+import dev.ohhoonim.factory.component.auths.model.User;
+import dev.ohhoonim.factory.component.auths.service.UserSignupCommandFactory;
+import dev.ohhoonim.factory.configuration.BusinessDatasourceConfig;
+import dev.ohhoonim.factory.configuration.PersonalDatasourceConfig;
+import dev.ohhoonim.factory.configuration.QueryDslConfig;
+import dev.ohhoonim.factory.personalRepository.UserRepository;
+import dev.ohhoonim.factory.personalTable.Users;
 
 @DataJpaTest
 @ImportAutoConfiguration({ PersonalDatasourceConfig.class,
         BusinessDatasourceConfig.class,
         QueryDslConfig.class,
-        UserSignupCommandAdaptor.class })
+        UserSignupCommandFactory.class })
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Profile("unittest")
 public class UserSignupCommandAdaptorTest {
 
     @Autowired
-    UserSignupCommandAdaptor userSignupCommandAdaptor;
+    UserSignupCommandFactory userSignupCommandAdaptor;
 
     @Autowired
     UserRepository userRepository;

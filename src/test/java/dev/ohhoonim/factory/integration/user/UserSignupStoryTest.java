@@ -9,9 +9,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import dev.ohhoonim.factory.api.auth.dto.UserSignupRequest;
-import dev.ohhoonim.factory.api.config.DefaultResponseBody;
-import dev.ohhoonim.factory.api.config.common.ResponseCodeEnum;
+import dev.ohhoonim.factory.component.auths.service.dto.UserSignupRequest;
+import dev.ohhoonim.factory.configuration.DefaultResponseBody;
+import dev.ohhoonim.factory.type.ResponseCodeEnum;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserSignupStoryTest {
